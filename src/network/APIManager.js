@@ -1,4 +1,4 @@
-import * as axios from "axios";
+import * as axios from 'axios';
 
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5';
 const CITIES_URL = 'https://weather.com/api/v1/p/redux-dal';
@@ -27,4 +27,4 @@ export default class APIManager {
         });
         return client.get(`/reverse?lat=${currentCoordinates['lat']}&lon=${currentCoordinates['long']}&limit=1&appid=${process.env.REACT_APP_API_KEY}`);
     };
-}
+};

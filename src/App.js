@@ -20,7 +20,7 @@ export default class App extends Component {
             isLoading: true,
             error: false
         }
-    }
+    };
 
     fetchWeather = (coordinates) => {
         this.setState({
@@ -41,7 +41,7 @@ export default class App extends Component {
                     error: true
                 })
             });
-    }
+    };
 
     fetchUserCurrentCity = (currentCoordinates) => {
         this.apiManager.fetchUserCurrentCity(currentCoordinates)
@@ -51,7 +51,7 @@ export default class App extends Component {
             .catch((error) => {
                 this.setState({city: `${currentCoordinates['lat']}; ${currentCoordinates['long']}`})
             });
-    }
+    };
 
     fetchUserLocation = (currentCoordinates) => {
         if (currentCoordinates['lat'] === Number.MAX_SAFE_INTEGER
@@ -70,27 +70,27 @@ export default class App extends Component {
                 }, function (positionError) {
                     this.setState({isLoading: false})
                 });
-        }
-    }
+        };
+    };
 
     componentDidMount() {
         this.fetchUserLocation(this.state.currentCoordinates)
-    }
+    };
 
     onCitySearchSelect = (result) => {
         this.setState({
                 city: result.title,
                 currentCoordinates: {
                     lat: result.lat,
-                    long: result.long
+                    long: result.long,
                 }
             }
-        )
+        );
         this.fetchWeather({
             lat: result.lat,
-            long: result.long
-        })
-    }
+            long: result.long,
+        });
+    };
 
     render() {
         let content
@@ -107,5 +107,5 @@ export default class App extends Component {
                 {content}
             </div>
         )
-    }
-}
+    };
+};
