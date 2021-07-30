@@ -1,30 +1,30 @@
 import React, {Component} from 'react';
 import Weather from "./Weather";
-import {Accordion, Card, CardContent, Icon} from 'semantic-ui-react'
+import WeatherDetailsCard from "./WeatherDetailsCard";
+import { Accordion, Card, CardContent, Icon } from 'semantic-ui-react';
 
 export default class CityCard extends Component {
-    state = {activeIndex: -1}
+    state = {activeIndex: {}}
 
     handleClick = (e, titleProps) => {
         const {index} = titleProps
         const {activeIndex} = this.state
-        const newIndex = activeIndex === index ? -1 : index
-        this.setState({activeIndex: newIndex})
+        index in activeIndex ? delete activeIndex[index] : activeIndex[index] = 1
+        this.setState({activeIndex: activeIndex})
+    }
+
+    capitalizeFirstLetter (string) {
+        return string[0].toUpperCase() + string.slice(1);
     }
 
     render() {
         const {weatherData, city} = this.props
+        const todayWeather = weatherData.daily[0]
         return (
             <Card fluid>
                 <CardContent>
                     <Card.Header><Icon name='map marker alternate'/>{city}</Card.Header>
-                    <Card centered>
-                        <Card.Header>Today {Math.round(weatherData.current.temp)} &deg;C</Card.Header>
-                        <div>
-                            <div>Clear Sky. High 30C, low 15C.</div>
-                            <div>Winds 15 m/s. Humidity 51%</div>
-                        </div>
-                    </Card>
+                    <WeatherDetailsCard weatherData={todayWeather} capitalizeFirstLetter={this.capitalizeFirstLetter}/>
                 </CardContent>
                 <CardContent>
                     <h3>Weather Forecast</h3>
@@ -35,7 +35,8 @@ export default class CityCard extends Component {
                                 weatherData={value}
                                 activeIndex={this.state.activeIndex}
                                 index={index}
-                                handleClick={this.handleClick}/>
+                                handleClick={this.handleClick}
+                                capitalizeFirstLetter={this.capitalizeFirstLetter}/>
                         })}
                     </Accordion>
                 </CardContent>

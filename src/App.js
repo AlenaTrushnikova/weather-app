@@ -97,7 +97,7 @@ export default class App extends Component {
     render() {
         let content
         if (this.state.isLoading) {
-            content = (<div>Loading...</div>)
+            content = (<div className="ui active centered inline loader" style = {{marginTop:10}}></div>)
         } else if (typeof this.state.data != 'undefined') {
             content = (<CityCard weatherData={this.state.data} city={this.state.city}/>)
         } else {
