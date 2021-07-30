@@ -1,13 +1,14 @@
 import {Card, Grid} from 'semantic-ui-react';
+import StringFormatter from "../utils/StringFormatter";
 
-const WeatherDetailsCard = ({ weatherData, capitalizeFirstLetter }) => {
+const WeatherDetailsCard = ({ weatherData }) => {
     return (
         <Card centered>
             <p style={{ fontWeight: 'bold' }}>
                 {Math.round(weatherData.temp.day) } &deg;C
             </p>
             <p style={{ fontStyle: 'italic' }}>
-                {capitalizeFirstLetter(weatherData.weather[0].description)}
+                {StringFormatter.capitalizeFirstLetter(weatherData.weather[0].description)}
             </p>
             <Grid columns={2}>
                 <Grid.Row>
