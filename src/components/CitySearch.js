@@ -11,6 +11,7 @@ export default class CitySearch extends Component {
 
     parseResults(data) {
         let results = []
+        if (data === undefined) return results
         for (let i = 0; i < data.address.length; i++) {
             results.push({
                 title: data.address[i],

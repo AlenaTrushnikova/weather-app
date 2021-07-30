@@ -22,21 +22,20 @@ export default class App extends Component {
         }
     }
 
-    fetchWeather(coordinates) {
+    fetchWeather = (coordinates) => {
         this.setState({
             isLoading: true,
             error: false
         })
-        let that = this
         this.apiManager.fetchWeather(coordinates)
             .then(result => {
-                that.setState({
+                this.setState({
                     data: result.data,
                     isLoading: false
                 })
             })
             .catch((error) => {
-                that.setState({
+                this.setState({
                     data: undefined,
                     isLoading: false,
                     error: true
@@ -44,34 +43,33 @@ export default class App extends Component {
             });
     }
 
-    fetchUserCurrentCity(currentCoordinates) {
-        let that = this
+    fetchUserCurrentCity = (currentCoordinates) => {
         this.apiManager.fetchUserCurrentCity(currentCoordinates)
             .then(result => {
-                that.setState({city: result.data[0].name})
+                this.setState({city: result.data[0].name})
             })
             .catch((error) => {
-                that.setState({city: `${currentCoordinates['lat']}; ${currentCoordinates['long']}`})
+                this.setState({city: `${currentCoordinates['lat']}; ${currentCoordinates['long']}`})
             });
     }
 
-    fetchUserLocation(currentCoordinates) {
-        let that = this
+    fetchUserLocation = (currentCoordinates) => {
         if (currentCoordinates['lat'] === Number.MAX_SAFE_INTEGER
             || currentCoordinates['long'] === Number.MAX_SAFE_INTEGER) {
 
-            navigator.geolocation.getCurrentPosition(function (position) {
-                that.setState({
-                    currentCoordinates: {
-                        lat: position.coords.latitude,
-                        long: position.coords.longitude
-                    }
-                },)
-                that.fetchUserCurrentCity(that.state.currentCoordinates)
-                that.fetchWeather(that.state.currentCoordinates)
-            }, function (positionError) {
-                that.setState({isLoading: false})
-            });
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    this.setState({
+                        currentCoordinates: {
+                            lat: position.coords.latitude,
+                            long: position.coords.longitude
+                        }
+                    },)
+                    this.fetchUserCurrentCity(this.state.currentCoordinates)
+                    this.fetchWeather(this.state.currentCoordinates)
+                }, function (positionError) {
+                    this.setState({isLoading: false})
+                });
         }
     }
 
@@ -97,7 +95,7 @@ export default class App extends Component {
     render() {
         let content
         if (this.state.isLoading) {
-            content = (<div className="ui active centered inline loader" style = {{marginTop:10}}></div>)
+            content = (<div className="ui active centered inline loader" style={{marginTop: 10}}></div>)
         } else if (this.state.data.length !== 0) {
             content = (<CityCard weatherData={this.state.data} city={this.state.city}/>)
         } else {

@@ -9,7 +9,9 @@ export default class CityCard extends Component {
     handleClick = (e, titleProps) => {
         const {index} = titleProps
         const {activeIndex} = this.state
-        index in activeIndex ? delete activeIndex[index] : activeIndex[index] = 1
+        if (index in activeIndex) {
+            delete activeIndex[index]
+        } else activeIndex[index] = 1
         this.setState({activeIndex: activeIndex})
     }
 
