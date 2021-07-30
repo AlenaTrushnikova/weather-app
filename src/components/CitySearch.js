@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {Search} from 'semantic-ui-react';
 import APIManager from "./../network/APIManager";
+import debounce from 'lodash.debounce';
 
 export default class CitySearch extends Component {
     state = {
@@ -8,6 +9,11 @@ export default class CitySearch extends Component {
     }
 
     apiManager = new APIManager()
+
+    constructor(props) {
+        super(props);
+        this.fetchCitiesDebounce = debounce(this.fetchCitiesDebounce.bind(this), 1000);
+    }
 
     parseResults(data) {
         let results = []
@@ -20,6 +26,10 @@ export default class CitySearch extends Component {
             })
         }
         this.setState({results: results})
+    }
+
+    fetchCitiesDebounce(value){
+        this.fetchCities(value)
     }
 
     fetchCities(value) {
@@ -35,7 +45,7 @@ export default class CitySearch extends Component {
     handleResultSelect = (e, {result}) => this.props.onCitySearchSelect(result)
 
     handleSearchChange = (e, {value}) => {
-        this.fetchCities(value)
+        this.fetchCitiesDebounce(value)
     }
 
     render() {
