@@ -52,6 +52,7 @@ export default class App extends Component {
                 this.setState({city: `${currentCoordinates['lat']}; ${currentCoordinates['long']}`})
             });
     };
+    positionError;
 
     fetchUserLocation = (currentCoordinates) => {
         if (currentCoordinates['lat'] === Number.MAX_SAFE_INTEGER
@@ -67,7 +68,7 @@ export default class App extends Component {
                     },)
                     this.fetchUserCurrentCity(this.state.currentCoordinates)
                     this.fetchWeather(this.state.currentCoordinates)
-                }, function (positionError) {
+                }, this.positionError = () => {
                     this.setState({isLoading: false})
                 });
         };
