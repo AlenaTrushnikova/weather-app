@@ -5,22 +5,19 @@ import CitySearch from "./components/CitySearch";
 import APIManager from "./network/APIManager";
 
 export default class App extends Component {
-    constructor(props) {
-        super(props);
 
-        this.apiManager = new APIManager()
+    apiManager = new APIManager();
 
-        this.state = {
-            city: '',
-            currentCoordinates: {
-                lat: Number.MAX_SAFE_INTEGER,
-                long: Number.MAX_SAFE_INTEGER
-            },
-            data: [],
-            isLoading: true,
-            error: false
-        }
-    };
+    state = {
+        city: '',
+        currentCoordinates: {
+            lat: Number.MAX_SAFE_INTEGER,
+            long: Number.MAX_SAFE_INTEGER
+        },
+        data: [],
+        isLoading: true,
+        error: false
+    }
 
     fetchWeather = (coordinates) => {
         this.setState({
@@ -71,7 +68,8 @@ export default class App extends Component {
                 }, this.positionError = () => {
                     this.setState({isLoading: false})
                 });
-        };
+        }
+        ;
     };
 
     componentDidMount() {
@@ -96,11 +94,11 @@ export default class App extends Component {
     render() {
         let content
         if (this.state.isLoading) {
-            content = (<div className="ui active centered inline loader" style={{marginTop: 10}}></div>)
+            content = (<div className="ui active centered inline loader" style={{marginTop: 10}}/>)
         } else if (this.state.data.length !== 0) {
             content = (<CityCard weatherData={this.state.data} city={this.state.city}/>)
         } else {
-            content = (<div></div>)
+            content = (<div/>)
         }
         return (
             <div className="App">

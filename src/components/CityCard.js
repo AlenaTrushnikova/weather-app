@@ -22,6 +22,7 @@ export default class CityCard extends Component {
             <Card fluid>
                 <CardContent>
                     <Card.Header><Icon name='map marker alternate'/>{city}</Card.Header>
+                    <h5>Now</h5>
                     <WeatherDetailsCard weatherData={todayWeather} />
                 </CardContent>
                 <CardContent>
