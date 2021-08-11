@@ -1,5 +1,6 @@
 # Welcome to Weather App ⛅
 
+#### Try Weather App Demo on [Heroku](https://alena-weather-app.herokuapp.com/)
 
 ### 🚀 Getting Started
 

@@ -2,7 +2,7 @@ import * as axios from 'axios';
 
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5';
 const CITIES_URL = 'https://weather.com/api/v1/p/redux-dal';
-const USER_GEO_URL = 'http://api.openweathermap.org/geo/1.0';
+const USER_GEO_URL = 'https://api.openweathermap.org/geo/1.0';
 
 export default class APIManager {
     fetchWeather = (coordinates) => {
